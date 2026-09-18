@@ -1,0 +1,20 @@
++	Addition	x + y	
+-	Subtraction	x - y	
+*	Multiplication	x * y	
+/	Division	x / y	
+%	Modulus	x % y	
+**	Exponentiation	x ** y	
+//	Floor division	x // y
+
+
+#Arithmetic operator 
+x = 5
+y = 3
+
+print(x + y) #Addition
+print(x - y) #Subtraction
+print(x * y) #Multiplication
+print(x / y) #Division
+print(x % y) #Modulus
+print(x ** y) #Exponentiation
+print(x // y) #Floor division

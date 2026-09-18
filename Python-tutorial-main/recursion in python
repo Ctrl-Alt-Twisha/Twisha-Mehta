@@ -1,0 +1,27 @@
+Python Recursion 
+Python also accepts function recursion, which means a defined function can call itself.
+Recursion is a common mathematical and programming concept. It means that a function calls itself. 
+This has the benefit of meaning that you can loop through data to reach a result.
+
+def factorial(n):
+
+   if n == 1:
+      print (n)
+      return 1 #base case
+   else:
+      print (n,'*', end=' ')
+      return n * factorial(n-1) #Recursive case
+      
+print ('factorial of 5=', factorial(5))
+
+factorial(1) = 1
+factorial(2) = 2 * 1 = 2
+factorial(3) = 3 * 2 = 6
+factorial(4) = 4 * 6 = 24
+factorial(5) = 5 * 24 = 120
+Final Output
+5 * 4 * 3 * 2 * 1
+120
+What is the main difference between Recursion and Iteration?
+The main difference between Recursion and Iteration is that recursion involves a function calling itself 
+while iteration involves a loop repeating instructions until a certain condition is met.

@@ -1,0 +1,69 @@
+#First Install xampp 
+#1. Install connector (if not installed)
+pip install mysql-connector-python
+
+#Database Connection
+
+# import mysql.connector
+
+# db = mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     password="",          # empty password
+#     database="test",       # your database name
+#     port=3307
+# )
+# cursor = db.cursor()
+# print("Connected:", db.is_connected())
+
+
+#Create Table
+# cursor.execute("""
+# CREATE TABLE IF NOT EXISTS students (
+#     id INT AUTO_INCREMENT PRIMARY KEY,
+#     name VARCHAR(50),
+#     age INT
+# )
+# """)
+# print("Table Created")
+
+#Insert Data
+# def insert_student(name, age):
+#     sql = "INSERT INTO students (name, age) VALUES (%s, %s)"
+#     values = (name, age)
+#     cursor.execute(sql, values)
+#     db.commit()
+#     print("Inserted:", cursor.rowcount)
+
+# insert_student("John", 22)
+# insert_student("Sara", 19)
+
+#Fetch Data
+# def fetch_students():
+#     cursor.execute("SELECT * FROM students")
+#     rows = cursor.fetchall()
+#     for row in rows:
+#         print(row)
+
+# fetch_students()
+
+#Update Data
+# def update_student(student_id, new_name, new_age):
+#     sql = "UPDATE students SET name=%s, age=%s WHERE id=%s"
+#     values = (new_name, new_age, student_id)
+#     cursor.execute(sql, values)
+#     db.commit()
+#     print("Updated:", cursor.rowcount)
+
+# update_student(1, "John Doe", 25)
+
+#Delete Data
+# def delete_student(student_id):
+#     sql = "DELETE FROM students WHERE id=%s"
+#     value = (student_id,)
+#     cursor.execute(sql, value)
+#     db.commit()
+#     print("Deleted:", cursor.rowcount)
+
+# delete_student(2)
+

@@ -1,0 +1,48 @@
+# Sample product data
+products = {
+    "apple": 1.00,
+    "banana": 0.50,
+    "orange": 0.75,
+    "milk": 2.00
+}
+
+def display_menu():
+    print("Available Products:")
+    for product, price in products.items():
+        print(f"- {product}: ${price:.2f}")
+
+def get_order():
+    order = {}
+    while True:
+        display_menu()
+        item = input("Enter product name (or 'done' to finish): ").lower()
+        if item == 'done':
+            break
+        if item in products:
+            quantity = int(input("Enter quantity: "))
+            order[item] = order.get(item, 0) + quantity
+        else:
+            print("Invalid product. Please try again.")
+    return order
+
+def calculate_bill(order):
+    total = 0
+    print("\n--- BILL ---")
+    for item, quantity in order.items():
+        price = products[item]
+        item_total = price * quantity
+        print(f"{item}: {quantity} x ${price:.2f} = ${item_total:.2f}")
+        total += item_total
+    print(f"Total: ${total:.2f}")
+    return total
+
+def main():
+    print("Welcome to the Billing System!")
+    order = get_order()
+    if order:
+        calculate_bill(order)
+    else:
+        print("No order placed.")
+
+if __name__ == "__main__":
+    main()

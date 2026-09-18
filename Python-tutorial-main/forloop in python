@@ -1,0 +1,51 @@
+A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string).
+#forloop
+fruits = ["Pride", "Xed", "cedp"]
+for x in fruits:
+  print(x)
+
+#Looping Through a String
+for x in "pride":
+  print(x)
+
+#The break Statement with forloop
+With the break statement we can stop the loop before it has looped through all the items:
+fruits = ["apple", "pride", "cherry"]
+for x in fruits:
+  print(x)
+  if x == "pride":
+    break
+  print(x)
+    
+#The continue Statement with forloop
+With the continue statement we can stop the current iteration of the loop, and continue with the next:
+
+#The range() function returns a sequence of numbers, starting from 0 by default, 
+and increments by 1 (by default), and stops before a specified number.
+#The range() Function with forloop
+for x in range(6):
+  print(x)
+
+#Else with forloop
+for x in range(6):
+  print(x)
+else:
+  print("Finally finished!")
+
+#Nested Loops
+A nested loop is a loop inside a loop.
+The "inner loop" will be executed one time for each iteration of the "outer loop":
+adj = ["red", "big", "tasty"]
+adj2 = ["red1", "big1", "tasty1"]
+
+for x in adj:
+  for y in adj2:
+    print(x, y)
+
+#The pass Statement
+for loops cannot be empty, but if you for some reason have a for loop with no content, 
+put in the pass statement to avoid getting an error.
+
+Example
+for x in [0, 1, 2]:
+  pass

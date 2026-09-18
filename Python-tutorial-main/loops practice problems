@@ -1,0 +1,228 @@
+1.Python program to print all the even numbers within the given range.
+2.Python program to print a multiplication table of a given number
+3.Python program to count the total number of digits in a number.
+4.Python program to check if the given string is a palindrome.
+5.Python program that accepts a word from the user and reverses it.
+6.Python program to count the number of even and odd numbers from a series of numbers
+7.Python program to find the factorial of a given number.
+8.Python program to check the validity of password input by users.
+9.Create an empty list to store the inputs
+------------------------------------------------------------------------------------------------
+
+1.Python program to print all the even numbers within the given range.
+# if the given range is 10
+given_range = 10
+ 
+for i in range(given_range):
+ 
+        # if number is divisble by 2
+        # then it's even
+        if i%2==0:
+ 
+                # if above condition is true
+                # print the number
+                print(i)
+
+Output
+
+0
+2
+4
+6
+8
+-----------------------------------------------------------------------------------------------------------------------------------
+2.Python program to print a multiplication table of a given number
+# if the given range is 10
+given_number = 5
+ 
+for i in range(11):
+        print (given_number," x",i," =",5*i)
+-----------------------------------------------------------------------------------------------------------------------------------
+3.Python program to count the total number of digits in a number.
+# if the given number is 129475
+given_number = 129475
+ 
+# since we cannot iterate over an integer
+# in python, we need to convert the
+# integer into string first using the
+# str() function
+given_number = str(given_number)
+ 
+# declare a variable to store
+# the count of digits in the
+# given number with value 0
+count=0
+ 
+for i in given_number:
+        count += 1
+ 
+# print the total count at the end
+print(count)
+
+Output
+6
+-----------------------------------------------------------------------------------------------------------------------------------
+4.Python program to check if the given string is a palindrome.
+# given string
+given_string = "madam"
+ 
+# an empty string variable to store
+# the given string in reverse
+reverse_string = ""
+ 
+# iterate through the given string
+# and append each element of the given string
+# to the reverse_string variable
+for i in given_string:
+    reverse_string = i + reverse_string  
+ 
+# if given_string matches the reverse_srting exactly
+# the given string is a palindrome
+if(given_string == reverse_string):
+   print("The string", given_string,"is a Palindrome.")
+ 
+# else the given string is not a palindrome   
+else:
+   print("The string",given_string,"is NOT a Palindrome.")
+
+Output
+The string madam is a Palindrome String.
+-----------------------------------------------------------------------------------------------------------------------------------
+5.Python program that accepts a word from the user and reverses it.
+# input string from user
+given_string = input()
+ 
+# an empty string variable to store
+# the given string in reverse
+reverse_string = ""
+ 
+# iterate through the given string
+# and append each element of the given string
+# to the reverse_string variable
+for i in given_string:
+    reverse_string = i + reverse_string  
+ 
+# print the reverse_string variable
+print(reverse_string)
+Input
+
+Naukri
+
+Output
+
+irkuaN
+-----------------------------------------------------------------------------------------------------------------------------------
+6.Python program to count the number of even and odd numbers from a series of numbers.
+# given list of numbers
+num_list = [1,3,5,6,99,134,55]
+ 
+ 
+# iterate through the list elemets
+# using for loop
+for i in num_list:
+ 
+    # if divided by 2, all even
+    # number leave a remainder of 0
+    if i%2==0:
+        print(i,"is an even number.")
+ 
+    # if remainder is not zero
+    # then it's an odd number
+    else:
+        print(i,"is an odd number.")
+
+Output
+
+1 is an odd number.
+3 is an odd number.
+5 is an odd number.
+6 is an even number.
+99 is an odd number.
+134 is an even number.
+55 is an odd number.
+
+7.Python program to find the factorial of a given number.
+# given number
+given_number= 5
+ 
+ # since 1 is a factor
+ # of all number
+ # set the factorial to 1
+factorial = 1
+ 
+# iterate till the given number
+for i in range(1, given_number + 1):
+    factorial = factorial * i
+ 
+print("The factorial of ", given_number, " is ", factorial)
+Output
+
+The factorial of 5 is 120
+-----------------------------------------------------------------------------------------------------------------------------------
+8.Python program to check the validity of password input by users.
+# input password from user
+password = input()
+ 
+# set up flags for each criteria
+# of a valid password
+has_valid_length = False
+has_lower_case = False
+has_upper_case = False
+has_digits = False
+has_special_characters = False
+ 
+ 
+# first verify if the length of password is
+# higher or equal to 8 and lower or equal to 16
+if (len(password) >= 8) and (len(password)<=16):
+ 
+    has_valid_length = True
+ 
+    # iterate through each characters
+    # of the password
+    for i in password:
+ 
+        # check if there are lowercase alphabets
+        if (i.islower()):
+                has_lower_case = True                   
+ 
+        # check if there are uppercase alphabets
+        if (i.isupper()):
+                has_upper_case = True                   
+ 
+        # check if the password has digits
+        if (i.isdigit()):
+                has_digits = True                       
+ 
+        # check if the password has special characters
+        if(i=="@" or i=="$" or i=="_"or i=="#" or i=="^" or i=="&" or i=="*"):
+                has_special_characters = True           
+ 
+ 
+if (has_valid_length==True and has_lower_case ==True and has_upper_case == True and has_digits == True and has_special_characters == True):
+    print("Valid Password")
+else:
+        print("Invalid Password")
+
+Input
+Naukri12345@
+Output
+
+Naukri12345@
+-----------------------------------------------------------------------------------------------------------------------------------
+
+9.Create an empty list to store the inputs
+# Create an empty list to store the inputs
+a = []
+
+# Ask the user for how many items they want to input
+b = int(input("How many items do you want to enter? "))
+
+# Loop to collect multiple inputs
+for i in range(b):
+    val = input(f"Enter item {i + 1}: ")
+    a.append(val)
+
+
+for i in a:
+    print(i)

@@ -1,0 +1,55 @@
+Python If Else Statements – Conditional Statements
+If-Else statements in Python are part of conditional statements, which decide the control of code. 
+As you can notice from the name If-Else, you can notice the code has two ways of directions.
+
+There are situations in real life when we need to make some decisions and based on these decisions, 
+we decide what we should do next. Similar situations arise in programming also where we need to make some 
+decisions and based on these decisions we will execute the next block of code.
+Conditional statements in Python languages decide the direction(Control Flow) of the flow of program execution.
+
+Types of Control Flow in Python
+Python control flow statements are as follows:
+
+poster
+The if statement
+The if-else statement
+The nested-if statement
+
+
+##If statment 
+The if statement is the most simple decision-making statement. 
+It is used to decide whether a certain statement or block of statements will be executed or not.
+a = 33
+b = 200
+if b > a:
+  print("b is greater than a")
+
+#if else 
+The if statement alone tells us that if a condition is true it will execute a block of 
+statements and if the condition is false it won’t. But if we want to do something else if the condition is false, 
+we can use the else statement with the if statement to execute a block of code when the if condition is false. 
+a = 33
+b = 33
+if b > a:
+  print("b is greater than a")
+else:
+  print("a and b are equal")
+
+#elif 
+Here, a user can decide among multiple options. The if statements are executed from the top down.
+a = 33
+b = 33
+if b > a:
+  print("b is greater than a")
+elif a == b:
+  print("a and b are equal")
+
+#elif with else
+a = 200
+b = 33
+if b > a:
+  print("b is greater than a")
+elif a == b:
+  print("a and b are equal")
+else:
+  print("a is greater than b")

@@ -1,0 +1,83 @@
+# List to store employee data
+employees = []
+
+def add_employee():
+    emp_id = input("Enter Employee ID: ")
+    for emp in employees:
+        if emp['id'] == emp_id:
+            print("Employee ID already exists.")
+            return
+    name = input("Enter Employee Name: ")
+    dept = input("Enter Department: ")
+    salary = input("Enter Salary: ")
+    employees.append({
+        'id': emp_id,
+        'name': name,
+        'department': dept,
+        'salary': salary
+    })
+    print("Employee added successfully.\n")
+
+def update_employee():
+    emp_id = input("Enter Employee ID to update: ")
+    found = False
+    for emp in employees:
+        if emp['id'] == emp_id:
+            name = input("Enter new name (leave blank to keep current): ")
+            dept = input("Enter new department (leave blank to keep current): ")
+            salary = input("Enter new salary (leave blank to keep current): ")
+
+            if name != "":
+                emp['name'] = name
+            if dept != "":
+                emp['department'] = dept
+            if salary != "":
+                emp['salary'] = salary
+
+            print("Employee updated.\n")
+            found = True
+            break
+    if not found:
+        print("Employee not found.\n")
+
+def delete_employee():
+    emp_id = input("Enter Employee ID to delete: ")
+    for emp in employees:
+        if emp['id'] == emp_id:
+            employees.remove(emp)
+            print("Employee deleted.\n")
+            return
+    print("Employee not found.\n")
+
+def list_employees():
+    if len(employees) == 0:
+        print("No employees found.\n")
+    else:
+        for emp in employees:
+            print(f"ID: {emp['id']}, Name: {emp['name']}, Dept: {emp['department']}, Salary: {emp['salary']}")
+        print()
+
+# Menu loop using if-else
+while True:
+    print("----- Employee Management System -----")
+    print("1. Add Employee")
+    print("2. Update Employee")
+    print("3. Delete Employee")
+    print("4. List Employees")
+    print("5. Exit")
+    
+    choice = input("Enter your choice (1-5): ")
+
+    if choice == '1':
+        add_employee()
+    elif choice == '2':
+        update_employee()
+    elif choice == '3':
+        delete_employee()
+    elif choice == '4':
+        list_employees()
+    elif choice == '5':
+        print("Exiting program.")
+        break
+    else:
+        print("Invalid choice. Please enter a number between 1 and 5.\n")

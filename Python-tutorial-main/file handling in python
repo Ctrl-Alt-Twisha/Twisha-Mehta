@@ -1,0 +1,29 @@
+"r" - Read - Default value. Opens a file for reading, error if the file does not exist
+
+"a" - Append - Opens a file for appending, creates the file if it does not exist
+
+"w" - Write - Opens a file for writing, creates the file if it does not exist
+
+"x" - Create - Creates the specified file, returns an error if the file exists
+
+#Python create file 
+file = open('pride.txt','w')
+file.write("This is the write command")
+file.write("It allows us to write in a particular file")
+file.close()
+
+#Python to read 
+file = open("geeks.txt", "r") 
+print (file.read())
+
+# append mode 
+file = open('pride.txt', 'a')
+file.write("This will add this line")
+file.close()
+
+# delete file 
+import os
+if os.path.exists("demofile.txt"):
+  os.remove("demofile.txt")
+else:
+  print("The file does not exist")

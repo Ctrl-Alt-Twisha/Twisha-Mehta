@@ -1,0 +1,26 @@
+##function without argument 
+def my_function():
+  print("Hello from a function")
+
+my_function()
+
+#function with argument
+def my_function(fname):
+  print(fname + " Refsnes")
+
+my_function("Emil")
+my_function("Tobias")
+my_function("Linus")
+
+# *args: Receive multiple arguments as a tuple
+def my_sum(*args):
+    return sum(args)
+
+print(my_sum(1, 2, 3, 4))
+
+# **kwargs: Receive multiple keyword arguments as a dictionary
+def func_kwargs(**kwargs):
+    print('kwargs: ', kwargs)
+    print('type: ', type(kwargs))
+
+func_kwargs(key1=1, key2=2, key3=3)

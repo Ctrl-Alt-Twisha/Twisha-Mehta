@@ -1,0 +1,135 @@
+List Items
+List items are ordered, changeable, and allow duplicate values.
+List items are indexed, the first item has index [0], the second item has index [1] etc.
+
+List operations 
+1.len 
+2.Allow Duplicates
+3.List datatypes 
+4.Access list item 
+5.Access sequence of Items
+6.Change Item Value
+7.Change a Range of Item Values
+8.Append Items
+9.Insert Items
+10.extend()
+11.Remove Specified Item
+12.pop() method 
+13.del method 
+14.Clear the List
+15.count 
+16.sort 
+17.reverse 
+18.copy 
+19.max 
+20.min
+21.dir 
+
+#list
+mylist = ["apple", "banana", "cherry"]
+print(mylist)
+
+#len 
+mylist = ["apple", "banana", "cherry"]
+print(len(mylist))
+
+#Allow Duplicates
+thislist = ["apple", "banana", "cherry", "apple", "cherry"]
+print(thislist)
+#List datatypes 
+list1 = ["apple", "banana", "cherry"]
+list2 = [1, 5, 7, 9, 3]
+list3 = [True, False, False]
+print(list1)
+print(list2)
+print(list3)
+
+#Access list item 
+thislist = ["apple", "banana", "cherry"]
+print(thislist[1])
+
+#Access sequence of Items
+thislist = ["apple", "banana", "cherry","grapes","chiku"]
+print(thislist[2:5])
+
+#Change Item Value
+thislist = ["apple", "banana", "cherry"]
+thislist[1] = "blackcurrant"
+print(thislist)
+
+#Change a Range of Item Values
+thislist = ["apple", "banana", "cherry", "orange", "kiwi", "mango"]
+thislist[1:3] = ["blackcurrant", "watermelon"]
+print(thislist)
+
+#Append Items
+thislist = ["apple", "banana", "cherry"]
+thislist.append("orange")
+print(thislist)
+
+#Insert Items
+thislist = ["apple", "banana", "cherry"]
+thislist.insert(1, "orange")
+print(thislist)
+
+##extend()
+thislist = ["apple", "banana", "cherry"]
+tropical = ["mango", "pineapple", "papaya"]
+thislist.extend(tropical)
+print(thislist)
+
+#Remove Specified Item
+thislist = ["apple", "banana", "cherry"]
+thislist.remove("banana")
+print(thislist)
+
+#pop() method 
+thislist = ["apple", "banana", "cherry"]
+thislist.pop(1)
+print(thislist)
+
+#del method 
+thislist = ["apple", "banana", "cherry"]
+del thislist[0]
+print(thislist)
+
+#Clear the List
+thislist = ["apple", "banana", "cherry"]
+thislist.clear()
+print(thislist)
+
+#count()
+Counts occurrences.
+lst = [1, 2, 2, 3, 2]
+print(lst.count(2))
+
+#sort()
+Sorts the list.
+lst = [3, 1, 4, 2]
+lst.sort()
+print(lst)
+
+2 method 
+lst = [3, 1, 4, 2]
+lst.sort(reverse=True)
+print(lst)
+
+#reverse()
+Reverses the list order.
+lst = [1, 2, 3]
+lst.reverse()
+print(lst)
+
+#copy()
+Creates a shallow copy.
+lst = [1, 2, 3]
+new_lst = lst.copy()
+print(new_lst)
+
+#max() / min()
+lst = [10, 5, 30]
+print(max(lst))
+print(min(lst))
+
+#Check ALL List Methods
+print(dir(list))

@@ -1,0 +1,15 @@
+#source code 
+source code is also known as computer code which is set of instruction written in some 
+programming language 
+
+#Machine code 
+Machine code also known as binary code or an object code which is easily understandable by machine 
+which is in form of 0 and 1
+machine code also express in hex format 
+
+#Byte code 
+byte code is an intermediate code between source code and machine code which is easily 
+understandable by virtual machine that software programs 
+that emulates the hypothetical cpu it is also known as p code or portable code  
+
+

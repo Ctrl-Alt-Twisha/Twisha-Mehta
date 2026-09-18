@@ -1,0 +1,44 @@
+Attributes of DateTime using DateTime 
+timedate.now() have different attributes, same as attributes of time such as year, month, date, hour, minute, and second.
+
+
+# Python3 code to demonstrate
+# attributes of now()
+
+# importing datetime module for now()
+import datetime
+
+# using now() to get current time
+current_time = datetime.datetime.now()
+
+# Printing attributes of now().
+print("The attributes of now() are :")
+
+print("Year :", current_time.year)
+
+print("Month : ", current_time.month)
+
+print("Day : ", current_time.day)
+
+print("Hour : ", current_time.hour)
+
+print("Minute : ", current_time.minute)
+
+print("Second :", current_time.second)
+
+print("Microsecond :", current_time.microsecond)
+
+#Python program to print current year, month and day
+# importing date class from datetime module
+from datetime import date
+
+# creating the date object of today's date
+todays_date = date.today()
+
+# printing todays date
+print("Current date: ", todays_date)
+
+# fetching the current year, month and day of today
+print("Current year:", todays_date.year)
+print("Current month:", todays_date.month)
+print("Current day:", todays_date.day)

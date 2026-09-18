@@ -1,0 +1,23 @@
+Decorators are a very powerful and useful tool in Python since it allows programmers to modify the behaviour 
+of a function or class. Decorators allow us to wrap another function in order to extend the behaviour 
+of the wrapped function, without permanently modifying it. But before diving deep into decorators let us 
+understand some concepts that will come in handy in learning the decorators.
+
+
+Instead of assigning the function call to a variable, Python provides a much more elegant way to achieve this 
+functionality using the @ symbol. 
+  def make_pretty(func):
+
+    def inner():
+        print("I got decorated")
+        func()
+    return inner
+
+@make_pretty
+def ordinary():
+    print("I am ordinary")
+
+ordinary()  
+
+Here, the ordinary() function is decorated with the make_pretty() decorator using the @make_pretty syntax, 
+which is equivalent to calling ordinary = make_pretty(ordinary).

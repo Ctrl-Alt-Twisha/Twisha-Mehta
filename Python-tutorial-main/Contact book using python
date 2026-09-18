@@ -1,0 +1,81 @@
+contacts = []
+cid = 1   # auto-increment contact ID
+
+
+# ---------------- ADD CONTACT ----------------
+def add_contact():
+    global cid
+    name = input("Name: ")
+    phone = input("Phone: ")
+    email = input("Email: ")
+    city = input("City: ")
+
+    contacts.append([cid, name, phone, email, city])
+    print("Contact added with ID:", cid)
+    cid += 1
+
+
+# ---------------- DISPLAY CONTACTS ----------------
+def display_contacts():
+    if not contacts:
+        print("No contacts found")
+    else:
+        print("\n--- Contact List ---")
+        for c in contacts:
+            print("ID:", c[0],
+                  "| Name:", c[1],
+                  "| Phone:", c[2],
+                  "| Email:", c[3],
+                  "| City:", c[4])
+
+
+# ---------------- EDIT CONTACT ----------------
+def edit_contact():
+    eid = int(input("Enter ID to edit: "))
+    for c in contacts:
+        if c[0] == eid:
+            print("Enter new details")
+            c[1] = input("New Name: ")
+            c[2] = input("New Phone: ")
+            c[3] = input("New Email: ")
+            c[4] = input("New City: ")
+            print("Contact updated successfully!")
+            return
+    print("ID not found!")
+
+
+# ---------------- DELETE CONTACT ----------------
+def delete_contact():
+    did = int(input("Enter ID to delete: "))
+    for c in contacts:
+        if c[0] == did:
+            contacts.remove(c)
+            print("Contact deleted successfully!")
+            return
+    print("ID not found!")
+
+
+# ---------------- MAIN MENU ----------------
+while True:
+    print("\n===== Contact Book Menu =====")
+    print("1. Add Contact")
+    print("2. Display Contacts")
+    print("3. Edit Contact")
+    print("4. Delete Contact")
+    print("5. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        add_contact()
+    elif choice == "2":
+        display_contacts()
+    elif choice == "3":
+        edit_contact()
+    elif choice == "4":
+        delete_contact()
+    elif choice == "5":
+        print("Exiting... Bye")
+        break
+    else:
+        print("Invalid choice. Try again.")
