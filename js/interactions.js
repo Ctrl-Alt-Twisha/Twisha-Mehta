@@ -163,10 +163,22 @@
   const likesCount = document.getElementById('likesCount');
   const LEGACY_LIKES_KEY = 'twisha-portfolio-likes';
   localStorage.removeItem(LEGACY_LIKES_KEY);
+
+  const LOCAL_LIKES_KEY = 'twisha-portfolio-likes-local';
   const COUNTER_NS = 'twisha-portfolio';
   const COUNTER_KEY = 'likes';
   const COUNTER_GET = `https://api.countapi.xyz/get/${COUNTER_NS}/${COUNTER_KEY}`;
   const COUNTER_HIT = `https://api.countapi.xyz/hit/${COUNTER_NS}/${COUNTER_KEY}`;
+
+  function getLocalLikes(){
+    const n = Number.parseInt(localStorage.getItem(LOCAL_LIKES_KEY) || '0', 10);
+    return Number.isFinite(n) ? n : 0;
+  }
+  function setLocalLikes(n){
+    const safe = Number.isFinite(n) ? n : 0;
+    localStorage.setItem(LOCAL_LIKES_KEY, String(safe));
+    if (likesCount) likesCount.textContent = String(safe);
+  }
 
   function bump(){
     likesBtn.classList.add('bump');
@@ -191,28 +203,33 @@
         const n = extractCount(await res.json());
         if (typeof n === 'number') {
           setCount(n);
+          return;
         }
       } else if (res.status === 404) {
         if (likesCount) likesCount.textContent = '0';
-      } else {
-        throw new Error('bad response');
+        return;
       }
+      throw new Error('bad response');
     } catch (e) {
-      // Do not fallback to localStorage here. That creates a second, different
-      // counter on each phone and defeats the shared-number requirement.
-      if (likesCount && !likesCount.textContent) likesCount.textContent = '0';
-      return;
+      // The shared service can fail in some environments, so keep the counter
+      // moving locally rather than leaving the button stuck.
+      setLocalLikes(getLocalLikes());
     }
 
     likesBtn.addEventListener('click', async () => {
       bump();
       try {
         const res = await fetch(COUNTER_HIT);
-        if (!res.ok) throw new Error('bad response');
-        const n = extractCount(await res.json());
-        if (typeof n === 'number') setCount(n);
+        if (res.ok) {
+          const n = extractCount(await res.json());
+          if (typeof n === 'number') {
+            setCount(n);
+            return;
+          }
+        }
+        throw new Error('bad response');
       } catch (e) {
-        // Keep the shared counter as the source of truth; avoid device-local state.
+        setLocalLikes(getLocalLikes() + 1);
       }
     });
   }
