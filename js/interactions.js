@@ -161,76 +161,35 @@
      count starts at 0 on each browser and drifts independently. */
   const likesBtn = document.getElementById('likesBtn');
   const likesCount = document.getElementById('likesCount');
-  const LEGACY_LIKES_KEY = 'twisha-portfolio-likes';
-  localStorage.removeItem(LEGACY_LIKES_KEY);
-
-  const LOCAL_LIKES_KEY = 'twisha-portfolio-likes-local';
-  const COUNTER_NS = 'twisha-portfolio';
-  const COUNTER_KEY = 'likes';
-  const COUNTER_GET = `https://api.countapi.xyz/get/${COUNTER_NS}/${COUNTER_KEY}`;
-  const COUNTER_HIT = `https://api.countapi.xyz/hit/${COUNTER_NS}/${COUNTER_KEY}`;
-
-  function getLocalLikes(){
-    const n = Number.parseInt(localStorage.getItem(LOCAL_LIKES_KEY) || '0', 10);
-    return Number.isFinite(n) ? n : 0;
-  }
-  function setLocalLikes(n){
-    const safe = Number.isFinite(n) ? n : 0;
-    localStorage.setItem(LOCAL_LIKES_KEY, String(safe));
-    if (likesCount) likesCount.textContent = String(safe);
-  }
+  const COUNTER_PATH = 'twisha-mehta-portfolio-likes';
+  const COUNTER_URL = `https://api.visitorbadge.io/api/visitors?path=${encodeURIComponent(COUNTER_PATH)}&label=likes&countColor=%23d97a63&style=flat`;
 
   function bump(){
     likesBtn.classList.add('bump');
     setTimeout(() => likesBtn.classList.remove('bump'), 250);
   }
 
-  function extractCount(data){
-    if (!data) return null;
-    if (typeof data.value === 'number') return data.value;
-    if (typeof data.count === 'number') return data.count;
-    return null;
+  function extractCount(svg){
+    const match = String(svg).match(/(?:aria-label|<title>)="?likes:\s*(\d+)/i);
+    return match ? Number.parseInt(match[1], 10) : null;
+  }
+
+  async function recordLike(){
+    try {
+      const res = await fetch(COUNTER_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error('bad response');
+      const n = extractCount(await res.text());
+      if (typeof n === 'number' && likesCount) likesCount.textContent = String(n);
+    } catch (e) {
+      // Keep the last shared value visible if the service is temporarily unavailable.
+    }
   }
 
   async function useSharedLikes(){
-    const setCount = (n) => {
-      if (typeof n === 'number' && likesCount) likesCount.textContent = String(n);
-    };
-
-    try {
-      const res = await fetch(COUNTER_GET);
-      if (res.ok) {
-        const n = extractCount(await res.json());
-        if (typeof n === 'number') {
-          setCount(n);
-          return;
-        }
-      } else if (res.status === 404) {
-        if (likesCount) likesCount.textContent = '0';
-        return;
-      }
-      throw new Error('bad response');
-    } catch (e) {
-      // The shared service can fail in some environments, so keep the counter
-      // moving locally rather than leaving the button stuck.
-      setLocalLikes(getLocalLikes());
-    }
-
-    likesBtn.addEventListener('click', async () => {
+    await recordLike();
+    likesBtn.addEventListener('click', () => {
       bump();
-      try {
-        const res = await fetch(COUNTER_HIT);
-        if (res.ok) {
-          const n = extractCount(await res.json());
-          if (typeof n === 'number') {
-            setCount(n);
-            return;
-          }
-        }
-        throw new Error('bad response');
-      } catch (e) {
-        setLocalLikes(getLocalLikes() + 1);
-      }
+      recordLike();
     });
   }
 
