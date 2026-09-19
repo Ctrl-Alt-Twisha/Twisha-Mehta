@@ -58,6 +58,14 @@ header.nav .name{
   color:var(--ink);
   text-decoration:none;
   text-shadow:0 2px 10px rgba(250,245,233,0.45);
+  padding:6px 10px;
+  margin:-6px -10px;
+  border-radius:999px;
+  transition:background 0.2s ease, opacity 0.2s ease;
+}
+header.nav .name:hover,
+header.nav .name:focus-visible{
+  background:rgba(127,179,196,0.22);
 }
 header.nav nav{
   display:flex;
@@ -71,9 +79,13 @@ header.nav nav a{
   text-decoration:none;
   opacity:0.85;
   text-shadow:0 2px 10px rgba(250,245,233,0.45);
-  transition:opacity 0.2s ease;
+  transition:opacity 0.2s ease, background 0.2s ease;
+  padding:6px 12px;
+  margin:-6px -12px;
+  border-radius:999px;
 }
-header.nav nav a:hover{ opacity:1; }
+header.nav nav a:hover,
+header.nav nav a:focus-visible{ opacity:1; background:rgba(127,179,196,0.22); }
 header.nav nav a.active{ opacity:1; border-bottom:2px solid var(--ink); padding-bottom:2px; }
 header.nav nav button.nav-link{
   font-family:'Inter',sans-serif;
@@ -82,13 +94,16 @@ header.nav nav button.nav-link{
   color:var(--ink);
   background:none;
   border:none;
-  padding:0;
   cursor:pointer;
   opacity:0.85;
   text-shadow:0 2px 10px rgba(250,245,233,0.45);
-  transition:opacity 0.2s ease;
+  transition:opacity 0.2s ease, background 0.2s ease;
+  padding:6px 12px;
+  margin:-6px -12px;
+  border-radius:999px;
 }
-header.nav nav button.nav-link:hover{ opacity:1; }
+header.nav nav button.nav-link:hover,
+header.nav nav button.nav-link:focus-visible{ opacity:1; background:rgba(127,179,196,0.22); }
 
 /* ---------- Puzzle hero ---------- */
 #stage{
@@ -114,10 +129,12 @@ header.nav nav button.nav-link:hover{ opacity:1; }
 .hero-copy{
   position:absolute;
   inset:0;
-  /* Higher than every .piece (they go up to ~11) — without this the
-     assembled puzzle tiles paint over the greeting text and it's
-     invisible even though it's technically "there". */
-  z-index:100;
+  /* Higher than every .piece (they go up to ~11) so the assembled puzzle
+     tiles don't paint over the greeting — but still LOWER than the modal
+     overlay (40), so opening any page (About, a project, the shell joke)
+     while still on the hero correctly hides this text instead of leaving
+     it floating on top of the overlay. */
+  z-index:20;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -201,8 +218,30 @@ main{ background:var(--sand); }
   gap:28px 48px;
   justify-content:center;
 }
-.stat{ text-align:center; }
-.stat a{ text-decoration:none; color:inherit; }
+.stat{
+  text-align:center;
+  padding:10px 22px;
+  border-radius:16px;
+  transition:background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.stat:hover{
+  background:rgba(217,122,99,0.10);
+  box-shadow:0 10px 22px rgba(217,122,99,0.22);
+  transform:translateY(-2px);
+}
+.stat a{ text-decoration:none; color:inherit; display:block; }
+.stat button.open-page{
+  display:block;
+  width:100%;
+  background:none;
+  border:none;
+  padding:0;
+  margin:0;
+  font-family:inherit;
+  color:inherit;
+  cursor:pointer;
+  text-align:inherit;
+}
 .stat .num{
   font-family:'Quicksand',sans-serif;
   font-weight:700;
@@ -232,6 +271,65 @@ section{ padding:88px 0; scroll-margin-top:34px; }
 #work{
   padding:130px 0 120px 0;
   scroll-margin-top:44px;
+}
+
+/* ---------- Journey So Far (modal opened from an About card) ---------- */
+.modal .journey-timeline{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  margin:0 0 28px 0;
+}
+.modal .journey-item{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+.modal .journey-icon{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:38px; height:38px;
+  border-radius:50%;
+  background:var(--sand-deep);
+  font-size:1.1rem;
+  margin-top:2px;
+}
+.modal .journey-item h3{
+  font-family:'Quicksand',sans-serif;
+  font-weight:600;
+  font-size:1rem;
+  margin:0 0 4px 0;
+  color:var(--ink);
+}
+.modal .journey-item p{
+  font-size:0.92rem;
+  line-height:1.55;
+  color:var(--ink-soft);
+  margin:0 0 8px 0;
+  max-width:56ch;
+}
+.modal .journey-item p:last-child{ margin-bottom:0; }
+.resume-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'Quicksand',sans-serif;
+  font-weight:600;
+  font-size:0.9rem;
+  color:var(--ink);
+  background:var(--sand-deep);
+  border:1px solid var(--sand-line);
+  border-radius:999px;
+  padding:11px 22px;
+  text-decoration:none;
+  transition:background 0.2s ease, transform 0.2s ease;
+}
+.resume-btn:hover{
+  background:var(--sea);
+  color:var(--paper);
+  transform:translateY(-2px);
 }
 /* Beachy wave dividers that frame the About section top/bottom */
 .wave-top, .wave-bottom{
@@ -319,13 +417,22 @@ button.card.openable .card-link{
   color:var(--ink);
 }
 
-/* Project cards: a little extra "cool clickable" polish — lift + shadow +
-   a sliding arrow, so it's obvious these open into something. */
-.project-card{ position:relative; overflow:hidden; }
-.project-card:hover{
+/* Cards that open a full page (About + every Work project) share the same
+   hover: lift + shadow + a highlighted border, so it's obvious any of them
+   opens into something — not just the Work cards. */
+.card.open-page{
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.card.open-page:hover{
   box-shadow:0 14px 28px rgba(79,146,168,0.22);
   border-color:var(--sea);
+  transform:translateY(-2px);
 }
+.card.open-page:active{ transform:translateY(0); }
+/* Extra polish (icon pop, sliding arrow) stays specific to Work's project cards */
 .project-card:hover .card-icon{ background:var(--sea); transform:scale(1.08); }
 .project-card .card-icon{ transition:background 0.2s ease, transform 0.2s ease; }
 .project-card .card-link{ display:inline-flex; align-items:center; gap:4px; }
@@ -399,6 +506,24 @@ button.card.openable .card-link{
   color:var(--ink);
   margin-bottom:22px !important;
 }
+/* A little scrapbook-style accent: a rotated sticker/ribbon caption, similar
+   to the taped labels in the reference design — used sparingly under a
+   photo or headline in each page. */
+.modal .modal-tag{
+  display:inline-block;
+  background:var(--paper);
+  border:1px solid var(--sand-line);
+  border-left:4px solid var(--coral);
+  border-radius:6px;
+  padding:8px 16px;
+  font-family:'Quicksand',sans-serif;
+  font-weight:600;
+  font-size:0.85rem;
+  color:var(--ink);
+  transform:rotate(-1.4deg);
+  box-shadow:0 6px 14px rgba(40,28,10,0.14);
+  margin:0 0 22px 0;
+}
 .modal .built-with{ margin-top:26px; }
 .modal .built-label{
   display:block;
@@ -419,6 +544,14 @@ button.card.openable .card-link{
   color:var(--ink);
   padding:7px 16px;
   border-radius:10px;
+}
+.modal .prize-photo{
+  display:block;
+  width:100%;
+  max-width:480px;
+  border-radius:18px;
+  margin:2px 0 26px 0;
+  box-shadow:0 14px 30px rgba(40,28,10,0.2);
 }
 .modal .project-live-link{
   display:inline-block;
@@ -499,10 +632,19 @@ button.card.openable .card-link{
   width:52px;
   height:52px;
   opacity:0.95;
-  pointer-events:none;
+  cursor:pointer;
+  background:none;
+  border:none;
+  padding:0;
   filter:drop-shadow(0 4px 10px rgba(40,28,10,0.22));
   animation:shell-bob 4.5s ease-in-out infinite;
+  transition:filter 0.2s ease, opacity 0.2s ease;
 }
+.shell-deco:hover, .shell-deco:focus-visible{
+  opacity:1;
+  filter:drop-shadow(0 6px 16px rgba(217,122,99,0.5));
+}
+.shell-deco:active{ opacity:0.85; }
 .shell-deco svg{ width:100%; height:100%; display:block; }
 @keyframes shell-bob{
   0%, 100%{ transform:translateY(0) rotate(-4deg); }
@@ -622,6 +764,7 @@ footer#contact .links a:focus-visible{
   .cards{ grid-template-columns:1fr; }
   header.nav nav{ gap:14px; }
   header.nav nav a{ font-size:0.85rem; }
+  .journey-item{ flex-direction:column; gap:10px; }
 }
 
 @media (prefers-reduced-motion: reduce){
