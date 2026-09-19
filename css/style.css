@@ -261,6 +261,7 @@ main{ background:var(--sand); }
   text-underline-offset:5px;
   transition:text-decoration-color 0.15s ease;
 }
+.stat .num{ color:var(--coral); }
 .stat a:hover .num,
 .stat a:focus-visible .num,
 .stat button.open-page:hover .num,
