@@ -225,9 +225,9 @@ main{ background:var(--sand); }
   transition:background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .stat:hover{
-  background:rgba(217,122,99,0.10);
-  box-shadow:0 10px 22px rgba(217,122,99,0.22);
-  transform:translateY(-2px);
+  background:transparent;
+  box-shadow:none;
+  transform:none;
 }
 .stat a{ text-decoration:none; color:inherit; display:block; }
 .stat button.open-page{
@@ -235,12 +235,19 @@ main{ background:var(--sand); }
   width:100%;
   background:none;
   border:none;
+  appearance:none;
+  -webkit-appearance:none;
   padding:0;
   margin:0;
   font-family:inherit;
   color:inherit;
   cursor:pointer;
   text-align:inherit;
+}
+.stat button.open-page:focus-visible{
+  outline:2px solid var(--sea-deep);
+  outline-offset:6px;
+  border-radius:8px;
 }
 .stat .num{
   font-family:'Quicksand',sans-serif;
@@ -628,7 +635,7 @@ button.card.openable .card-link{
   position:fixed;
   left:22px;
   bottom:18px;
-  z-index:45; /* above the page overlay so it shows on every "page" too */
+  z-index:70; /* keep the joke control clickable above the overlay and nav */
   width:52px;
   height:52px;
   opacity:0.95;
@@ -637,22 +644,15 @@ button.card.openable .card-link{
   border:none;
   padding:0;
   filter:drop-shadow(0 4px 10px rgba(40,28,10,0.22));
-  animation:shell-bob 4.5s ease-in-out infinite;
   transition:filter 0.2s ease, opacity 0.2s ease;
 }
+.shell-deco svg{ pointer-events:none; }
 .shell-deco:hover, .shell-deco:focus-visible{
   opacity:1;
   filter:drop-shadow(0 6px 16px rgba(217,122,99,0.5));
 }
 .shell-deco:active{ opacity:0.85; }
 .shell-deco svg{ width:100%; height:100%; display:block; }
-@keyframes shell-bob{
-  0%, 100%{ transform:translateY(0) rotate(-4deg); }
-  50%{ transform:translateY(-6px) rotate(4deg); }
-}
-@media (prefers-reduced-motion: reduce){
-  .shell-deco{ animation:none; }
-}
 
 /* ---------- Copy-email flag ---------- */
 .email-wrap{ position:relative; display:inline-flex; }
