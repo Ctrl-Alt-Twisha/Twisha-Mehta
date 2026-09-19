@@ -161,6 +161,8 @@
      count starts at 0 on each browser and drifts independently. */
   const likesBtn = document.getElementById('likesBtn');
   const likesCount = document.getElementById('likesCount');
+  const LEGACY_LIKES_KEY = 'twisha-portfolio-likes';
+  localStorage.removeItem(LEGACY_LIKES_KEY);
   const COUNTER_NS = 'twisha-portfolio';
   const COUNTER_KEY = 'likes';
   const COUNTER_GET = `https://api.countapi.xyz/get/${COUNTER_NS}/${COUNTER_KEY}`;
