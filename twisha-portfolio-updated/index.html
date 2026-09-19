@@ -33,8 +33,10 @@
   <section class="stats">
     <div class="wrap">
       <div class="stat">
-        <div class="num">🏆 Prize won</div>
-        <div class="label">$4.5k worth</div>
+        <button class="open-page" type="button" data-template="tmpl-prize" data-title="Press Files — 2nd Place">
+          <div class="num">🥈 Prize won</div>
+          <div class="label">₹4,500 · 2nd Place</div>
+        </button>
       </div>
       <div class="stat">
         <a href="https://leetcode.com/u/Ctrl_Alt_Twisha/" target="_blank" rel="noopener">
@@ -55,6 +57,10 @@
         <button class="card open-page" type="button" data-template="tmpl-about" data-title="Hey, I'm Twisha 👋">
           <h3>Hey, I'm Twisha 👋</h3>
           <p>Engineering student, puzzle fanatic, always figuring something out.</p>
+        </button>
+        <button class="card open-page" type="button" data-template="tmpl-journey" data-title="My Journey So Far 🧭">
+          <h3>My Journey So Far 🧭</h3>
+          <p>From robotics kits to hackathons — and my resume, if you want the paper trail.</p>
         </button>
       </div>
     </div>
@@ -115,6 +121,7 @@
 
 <!-- Real About content, kept out of the flow until opened -->
 <template id="tmpl-about">
+  <p class="modal-tag">🌊 Engineering student · Puzzle fanatic</p>
   <p>I'm an engineering student who loves <strong>AI</strong>, <strong>coding</strong>, and <strong>designing</strong>, and solving problems that make me think differently.</p>
   <p>Right now, I'm exploring <em>UI/UX</em> and <em>web development</em>, learning how to turn ideas into webpages that aren't just functional, but actually feel good to use. I love experimenting with different ideas, designs, and technologies. If there's something new to try, I'm probably going to try it.</p>
   <p>I'm also the kind of person who enjoys a challenge. My friends would describe me as <strong><em>empathetic</em></strong>, <strong><em>fearless</em></strong>, and a <strong><em>challenge taker</em></strong>. When something gets difficult, my first thought is usually, "Okay, how do I solve this?" I like figuring things out, researching, trying again, and not giving up until I understand what went wrong.</p>
@@ -129,9 +136,61 @@
   </div>
 </template>
 
+<template id="tmpl-journey">
+  <p class="modal-tag">🧭 From robotics kits to hackathons</p>
+  <div class="journey-timeline">
+    <div class="journey-item">
+      <span class="journey-icon">🌱</span>
+      <div>
+        <h3>Where It Started</h3>
+        <p>Before engineering, I was a fairly studious kid who loved having something new to learn. I was Head Girl at school, enjoyed writing, and spent a lot of my free time reading. I was also drawn to robotics from an early age, which became one of my first experiences with building things.</p>
+      </div>
+    </div>
+    <div class="journey-item">
+      <span class="journey-icon">🤖</span>
+      <div>
+        <h3>Learning by Building</h3>
+        <p>I started learning robotics around 6th or 7th grade and spent the next few years building different projects. I made a basketball counter that counted successful shots, experimented with line following robots, and built a small ATM style door that could be unlocked by entering the correct code.</p>
+        <p>Those projects introduced me to something that has stayed with me ever since: the satisfaction of turning an idea into something that actually works.</p>
+      </div>
+    </div>
+    <div class="journey-item">
+      <span class="journey-icon">💻</span>
+      <div>
+        <h3>Exploring Technology</h3>
+        <p>That curiosity eventually led me to Computer Engineering and cybersecurity at DJSCE. College has given me the opportunity to explore programming, web development, competitions, hackathons, and projects that constantly push me beyond what I already know.</p>
+        <p>Everything I build pushes me outside my comfort zone. Maybe that's why I love it. There is always something new to figure out, something that doesn't work the first time, or a skill I haven't learned yet.</p>
+      </div>
+    </div>
+    <div class="journey-item">
+      <span class="journey-icon">📖</span>
+      <div>
+        <h3>Beyond Technology</h3>
+        <p>Technology is only one part of what interests me. I've always loved writing and reading, and I'm almost never too far away from a book. I also enjoy experiences that let me work with people, take on unfamiliar challenges, and explore interests outside my usual space.</p>
+      </div>
+    </div>
+    <div class="journey-item">
+      <span class="journey-icon">🚀</span>
+      <div>
+        <h3>Looking Ahead</h3>
+        <p>Two years from now, I hope this section feels a little outdated. I want to keep learning, build things that genuinely excite me, explore areas I haven't discovered yet, and become a more confident version of myself along the way.</p>
+        <p>I'm not trying to have everything figured out. I'm trying to keep growing into someone I haven't been before.</p>
+      </div>
+    </div>
+  </div>
+  <a class="resume-btn" href="assets/Twisha-Mehta-Resume.pdf" target="_blank" rel="noopener" download="Twisha-Mehta-Resume.pdf">📄 Download Resume</a>
+  <div class="modal-tail" aria-hidden="true">
+    <div class="tail-wave">
+      <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C150,60 350,0 600,30 C850,60 1050,0 1200,30 L1200,60 L0,60 Z"></path></svg>
+    </div>
+    <span class="tail-shell">🐚</span>
+  </div>
+</template>
+
 <!-- Project pages -->
 <template id="tmpl-project1">
   <p class="tagline"><em>4 hours. One idea. One working website.</em></p>
+  <p class="modal-tag">⚡ Hackathon Build · 4 Hours</p>
   <p>What started as a hackathon challenge turned into a fully functional web application that I built in just 4 hours with the help of AI. I took the idea from a blank page to a deployed website, figuring things out as I went and making decisions along the way.</p>
   <p>I really enjoyed the fast paced part of it. There wasn't much time to overthink, so I had to build, test, change, and keep moving.</p>
   <div class="built-with">
@@ -149,6 +208,7 @@
 </template>
 <template id="tmpl-project2">
   <p class="tagline"><em>For thoughts that shouldn't disappear.</em></p>
+  <p class="modal-tag">📝 Personal Project · Note Taking App</p>
   <p>A simple note taking web app I built to make saving quick thoughts easy. It lets you add, edit, and delete notes, with everything stored locally so your notes stay even after you leave the page.</p>
   <p>This was one of my projects where I got to play around with HTML, CSS, JavaScript, and interface design, while keeping the experience simple and useful.</p>
   <div class="built-with">
@@ -156,6 +216,7 @@
     <div class="skills"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Local Storage</span></div>
   </div>
   <p class="project-badge">📝 simple idea, useful little app</p>
+  <a class="project-live-link" href="https://github.com/Ctrl-Alt-Twisha/Note-Taking-App" target="_blank" rel="noopener">View on GitHub →</a>
   <div class="modal-tail" aria-hidden="true">
     <div class="tail-wave">
       <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C150,60 350,0 600,30 C850,60 1050,0 1200,30 L1200,60 L0,60 Z"></path></svg>
@@ -165,6 +226,7 @@
 </template>
 <template id="tmpl-project3">
   <p class="tagline"><em>My first little experiment with Python.</em></p>
+  <p class="modal-tag">🎮 First Experiment · Python</p>
   <p>Pong was one of those projects that felt like the perfect place to start experimenting. It's a simple game, but building it myself meant figuring out movement, collision detection, controls, and scoring, and watching the pieces come together.</p>
   <p>It was an easy first project, but it made programming feel a lot more interactive. Sometimes you just need to build something small to get started.</p>
   <div class="built-with">
@@ -172,6 +234,27 @@
     <div class="skills"><span>Python</span><span>Game Logic</span><span>Collision Detection</span></div>
   </div>
   <p class="project-badge">🎮 first experiment, many more to come</p>
+  <a class="project-live-link" href="https://github.com/Ctrl-Alt-Twisha/Ping-Pong-Game" target="_blank" rel="noopener">View on GitHub →</a>
+  <div class="modal-tail" aria-hidden="true">
+    <div class="tail-wave">
+      <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C150,60 350,0 600,30 C850,60 1050,0 1200,30 L1200,60 L0,60 Z"></path></svg>
+    </div>
+    <span class="tail-shell">🐚</span>
+  </div>
+</template>
+
+<template id="tmpl-prize">
+  <img src="assets/press-files.jpg" alt="Twisha and a fellow teammate holding their certificates and trophy at Invictus 2.0" class="prize-photo">
+  <p class="modal-tag">🥈 2nd Place · Press Files · Team of 2</p>
+  <p>A fellow teammate and I participated in Press Files, a journalism and investigation challenge focused on observation, problem solving, and deduction. We entered with limited knowledge of what to expect, knowing only that the competition would involve uncovering and connecting clues.</p>
+  <p>The challenge required us to work through puzzles, riddles, and emoji based clues under time pressure. With only the top 12 teams progressing, we initially did not expect to advance, making it a particularly rewarding moment when we qualified for the next stage.</p>
+  <p>Throughout the competition, we relied on collaborative problem solving, careful observation, and constant discussion to work through the clues. We ultimately secured 2nd Place and received a prize of up to ₹4,500.</p>
+  <p>It was a valuable experience in working under pressure, approaching unfamiliar problems, and combining different perspectives to arrive at a solution. I was especially glad to share the experience with my teammate, who made the competition even more memorable.</p>
+  <div class="built-with">
+    <span class="built-label">Highlights</span>
+    <div class="skills"><span>🥈 2nd Place</span><span>👥 Team of 2</span><span>📰 Journalism &amp; Investigation</span></div>
+  </div>
+  <p class="project-badge">🥈 With a fellow teammate — investigation, problem solving, and teamwork.</p>
   <div class="modal-tail" aria-hidden="true">
     <div class="tail-wave">
       <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C150,60 350,0 600,30 C850,60 1050,0 1200,30 L1200,60 L0,60 Z"></path></svg>
@@ -186,9 +269,9 @@
   <span class="likes-count" id="likesCount">0</span>
 </button>
 
-<!-- Decorative beach touch: circular seashell badge -->
-<div class="shell-deco" aria-hidden="true">
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<!-- Decorative beach touch: circular seashell badge — click it for a joke -->
+<button class="shell-deco" id="shellBtn" type="button" aria-label="Click the shell for a joke">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <circle cx="50" cy="50" r="48" fill="url(#shellGrad)"/>
     <path d="M50 78 C33 78 22 65 22 48 C22 33 33 22 47 22 C58 22 66 30 66 41 C66 50 59 56 51 56 C45 56 41 52 41 47 C41 43 44 40 48 40" fill="none" stroke="#fffaf0" stroke-width="3.2" stroke-linecap="round"/>
     <defs>
@@ -198,7 +281,7 @@
       </linearGradient>
     </defs>
   </svg>
-</div>
+</button>
 
 <script src="js/puzzle.js"></script>
 <script src="js/nav.js"></script>
