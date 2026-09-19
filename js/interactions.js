@@ -156,41 +156,21 @@
   }
 
   /* ---------- Likes counter ----------
-     A real shared count — the same number for every visitor, on every
-     device, not a separate tally per browser. This uses Abacus
-     (abacus.jasoncameron.dev), a free counter API that needs no signup or
-     key: every page load reads the current number without changing it,
-     and every click sends a request that increments one shared counter
-     on their server.
-     (This used to call CounterAPI's v1 endpoint, but that was retired in
-     August 2026 — CounterAPI's v2 replacement requires a signed-up API
-     key, so it's no longer a fit for a plain client-side site. Every fetch
-     was quietly failing, and the local fallback below was kicking in on
-     every visit — a separate count per browser starting at 0 — which is
-     the "starts from 0 for everyone" bug.)
-     If Abacus is ever unreachable (offline, rate-limited, or the service
-     itself having issues), this still quietly falls back to a plain
-     per-device count in localStorage, so the button never just breaks —
-     it's just not shared for that visit.
-     NOTE: this is a free third-party service with no account tied to it,
-     so it's not guaranteed to stay up forever. If it ever needs replacing,
-     swap COUNTER_NS/COUNTER_KEY (or the URLs below) for a new provider —
-     everything else here stays the same. */
+     Always use a single shared counter so every device shows the same value.
+     A device-local fallback would create exactly the bug you reported: the
+     count starts at 0 on each browser and drifts independently. */
   const likesBtn = document.getElementById('likesBtn');
   const likesCount = document.getElementById('likesCount');
-  const LIKES_KEY = 'twisha-portfolio-likes';
-  const COUNTER_NS = 'twisha-mehta-portfolio-9f3k';
-  const COUNTER_KEY = 'site-likes';
-  const COUNTER_GET = `https://abacus.jasoncameron.dev/get/${COUNTER_NS}/${COUNTER_KEY}`;
-  const COUNTER_HIT = `https://abacus.jasoncameron.dev/hit/${COUNTER_NS}/${COUNTER_KEY}`;
+  const COUNTER_NS = 'twisha-portfolio';
+  const COUNTER_KEY = 'likes';
+  const COUNTER_GET = `https://api.countapi.xyz/get/${COUNTER_NS}/${COUNTER_KEY}`;
+  const COUNTER_HIT = `https://api.countapi.xyz/hit/${COUNTER_NS}/${COUNTER_KEY}`;
 
   function bump(){
     likesBtn.classList.add('bump');
     setTimeout(() => likesBtn.classList.remove('bump'), 250);
   }
 
-  // Abacus always replies with { "value": N }, but keep this liberal in
-  // case the provider ever changes shape again.
   function extractCount(data){
     if (!data) return null;
     if (typeof data.value === 'number') return data.value;
@@ -198,50 +178,40 @@
     return null;
   }
 
-  function getLocalLikes(){
-    const n = parseInt(localStorage.getItem(LIKES_KEY), 10);
-    return Number.isFinite(n) ? n : 0;
-  }
-  function setLocalLikes(n){
-    localStorage.setItem(LIKES_KEY, String(n));
-    if (likesCount) likesCount.textContent = String(n);
-  }
-  function useLocalLikes(){
-    setLocalLikes(getLocalLikes());
-    likesBtn.addEventListener('click', () => {
-      setLocalLikes(getLocalLikes() + 1);
-      bump();
-    });
-  }
-
   async function useSharedLikes(){
-    // Show the current shared count on load, without incrementing it.
+    const setCount = (n) => {
+      if (typeof n === 'number' && likesCount) likesCount.textContent = String(n);
+    };
+
     try {
       const res = await fetch(COUNTER_GET);
-      if (res.status === 404){
-        // Counter hasn't been created yet (nobody's clicked it). That's a
-        // real shared 0, not a failure — don't fall back to local storage.
-        if (likesCount) likesCount.textContent = '0';
-      } else if (res.ok){
+      if (res.ok) {
         const n = extractCount(await res.json());
-        if (typeof n === 'number' && likesCount) likesCount.textContent = String(n);
+        if (typeof n === 'number') {
+          setCount(n);
+        }
+      } else if (res.status === 404) {
+        if (likesCount) likesCount.textContent = '0';
       } else {
         throw new Error('bad response');
       }
-    } catch (e){
-      useLocalLikes();
+    } catch (e) {
+      // Do not fallback to localStorage here. That creates a second, different
+      // counter on each phone and defeats the shared-number requirement.
+      if (likesCount && !likesCount.textContent) likesCount.textContent = '0';
       return;
     }
 
     likesBtn.addEventListener('click', async () => {
       bump();
       try {
-        // /hit creates the counter on first use and increments it by 1.
         const res = await fetch(COUNTER_HIT);
         if (!res.ok) throw new Error('bad response');
         const n = extractCount(await res.json());
-        if (typeof n === 'number' && likesCount) likesCount.textContent = String(n);
-      } catch (e){ /* offline or rate-limited this click — count just won't move this time */ }
+        if (typeof n === 'number') setCount(n);
+      } catch (e) {
+        // Keep the shared counter as the source of truth; avoid device-local state.
+      }
     });
   }
 
