@@ -187,7 +187,7 @@
       }
     };
 
-    likesBtn.addEventListener('click', async () => {
+    async function updateSharedCount(){
       bump();
       try {
         const res = await fetch(COUNTER_HIT, { cache: 'no-store' });
@@ -202,9 +202,13 @@
       } catch (e) {
         setLocalLikes(getLocalLikes() + 1);
       }
-    });
+    }
 
-    setLocalLikes(getLocalLikes());
+    likesBtn.addEventListener('click', updateSharedCount);
+
+    // VisitorBadge is the shared source of truth. Reading it here keeps every
+    // device on the same value instead of displaying device-local storage.
+    await updateSharedCount();
   }
 
   if (likesBtn) useSharedLikes();
