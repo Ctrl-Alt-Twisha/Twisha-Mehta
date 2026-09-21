@@ -225,9 +225,9 @@ main{ background:var(--sand); }
   transition:background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .stat:hover{
-  background:rgba(217,122,99,0.10);
-  box-shadow:0 10px 22px rgba(217,122,99,0.22);
-  transform:translateY(-2px);
+  background:transparent;
+  box-shadow:none;
+  transform:none;
 }
 .stat a{ text-decoration:none; color:inherit; display:block; }
 .stat button.open-page{
@@ -257,11 +257,44 @@ main{ background:var(--sand); }
   display:inline-flex;
   align-items:center;
   gap:6px;
+  text-decoration:none;
 }
 .stat .label{
   font-size:0.88rem;
   color:var(--ink-soft);
   margin-top:2px;
+}
+/* Prize / LeetCode "boxes" — a visible card so it reads as clickable,
+   with a warm hover glow instead of the old underline-on-hover. Bigger
+   size is desktop-only (see media query below); phones keep this base size. */
+.stat-box{
+  display:flex !important;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:210px !important;
+  border-radius:18px !important;
+  border:1px solid var(--sand-line) !important;
+  background:var(--paper) !important;
+  padding:14px 22px !important;
+  text-decoration:none !important;
+  transition:box-shadow 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+.stat-box:hover, .stat-box:focus-visible{
+  border-color:var(--coral);
+  box-shadow:0 0 0 1px rgba(217,122,99,0.35), 0 12px 26px rgba(217,122,99,0.25);
+  transform:translateY(-3px);
+}
+.stat-box:active{ transform:translateY(-1px); }
+.stat-box .num, .stat-box .label{ text-decoration:none !important; }
+.amount-black{
+  color:#1c1a17;
+  font-weight:800;
+}
+@media (min-width:861px){
+  .stat-box{ width:280px !important; padding:22px 36px !important; }
+  .stat-box .num{ font-size:2.15rem; white-space:nowrap; }
+  .stat-box .label{ font-size:1.02rem; }
 }
 
 section{ padding:88px 0; scroll-margin-top:34px; }
@@ -276,9 +309,104 @@ section{ padding:88px 0; scroll-margin-top:34px; }
 /* A bit more room to scroll through, and a small gap so jumping here
    from the nav doesn't land flush against the header. */
 #work{
-  padding:130px 0 120px 0;
+  position:relative;
+  padding:150px 0 130px 0;
   scroll-margin-top:44px;
+  /* Deep lagoon teal instead of flat navy: still dark, but with a soft
+     sea-glow up top and a faint sunset-coral glow low down so it feels
+     warm and inviting rather than heavy. */
+  background:
+    radial-gradient(ellipse 65% 55% at 15% 8%, rgba(127,179,196,0.20), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 92% 96%, rgba(217,122,99,0.16), transparent 70%),
+    linear-gradient(180deg, #0f3640 0%, #0f2f3f 55%, #122a3d 100%);
 }
+/* Shoreline: the sandy-grey wave at the bottom of About flows into the
+   dark water here, so there's no hard cut between the two sections. */
+#work::before{
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:60px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath fill='%23c6d0c1' d='M0,0 L1200,0 L1200,30 C1050,60 850,0 600,30 C350,60 150,0 0,30 Z'/%3E%3C/svg%3E") center top / 100% 100% no-repeat;
+  pointer-events:none;
+}
+#work h2{ color:var(--paper); }
+#work .card{
+  background:linear-gradient(160deg, #1f5563 0%, #18435a 100%);
+  border:1px solid rgba(127,179,196,0.38);
+  box-shadow:0 10px 26px rgba(4,16,24,0.35);
+}
+#work .card h3{ color:var(--paper); }
+#work .card p, #work .card p em{ color:#d3e5ec !important; }
+#work .card-thumb{ background:#0f2f3f; border-color:rgba(127,179,196,0.4); }
+#work .card-icon{ background:var(--coral); color:#fff; box-shadow:0 4px 12px rgba(217,122,99,0.4); }
+#work .card.open-page:hover,
+#work .card.open-page:focus-visible{
+  background:linear-gradient(160deg, #26697a 0%, #1d5470 100%);
+  border-color:#f0a08a;
+  box-shadow:0 0 0 1px rgba(240,160,138,0.55), 0 16px 34px rgba(217,122,99,0.30);
+  transform:translateY(-4px);
+  outline:none;
+}
+#work .project-card:hover .card-icon{ background:#f0a08a; }
+#work .card a{ color:var(--paper); border-bottom-color:var(--sea); }
+
+/* ---------- About cards: light blue → deep blue so they read as buttons ---------- */
+#about .card.open-page{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  background:linear-gradient(165deg, #9ad0e3 0%, #4f97b8 30%, #25607f 62%, #1b3d5b 100%);
+  border:1px solid rgba(255,255,255,0.5);
+  box-shadow:0 10px 24px rgba(29,58,84,0.28);
+}
+#about .card h3{ color:#fff; text-shadow:0 1px 3px rgba(10,30,50,0.35); }
+#about .card p, #about .card p em{ color:#e6f2f7 !important; }
+#about .card-thumb{
+  background:rgba(255,255,255,0.92);
+  border-color:rgba(255,255,255,0.75);
+  box-shadow:0 6px 14px rgba(15,40,60,0.25);
+}
+/* Emoji strip standing in for a photo on the Journey card (mirrors the
+   five chapters inside it) so both cards have the same shape. */
+.card-thumb-emoji{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  align-content:center;
+  gap:8px 8px;
+  font-size:1.6rem;
+  line-height:1;
+}
+/* The "Read more" pill — an actual button-looking thing at the bottom of each card */
+.card-cta{
+  margin-top:auto;
+  align-self:center;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'Quicksand',sans-serif;
+  font-weight:700;
+  font-size:0.92rem;
+  color:#1b3d5b;
+  background:#eaf6fb;
+  padding:10px 20px;
+  border-radius:999px;
+  box-shadow:0 4px 10px rgba(10,30,50,0.25);
+  transition:background 0.2s ease, transform 0.2s ease;
+}
+.card-cta .arrow{ display:inline-block; transition:transform 0.2s ease; }
+#about .card.open-page:hover,
+#about .card.open-page:focus-visible{
+  border-color:#dff2fa;
+  box-shadow:0 0 0 3px rgba(154,208,227,0.6), 0 18px 38px rgba(29,58,84,0.42);
+  transform:translateY(-4px);
+  filter:brightness(1.07);
+  outline:none;
+}
+#about .card.open-page:hover .card-cta,
+#about .card.open-page:focus-visible .card-cta{ background:#fff; }
+#about .card.open-page:hover .arrow,
+#about .card.open-page:focus-visible .arrow{ transform:translateX(5px); }
 
 /* ---------- Journey So Far (modal opened from an About card) ---------- */
 .modal .journey-timeline{
@@ -292,6 +420,7 @@ section{ padding:88px 0; scroll-margin-top:34px; }
   gap:14px;
   align-items:flex-start;
 }
+.modal .journey-item > div{ overflow:auto; }
 .modal .journey-icon{
   flex:0 0 auto;
   display:inline-flex;
@@ -337,6 +466,12 @@ section{ padding:88px 0; scroll-margin-top:34px; }
   background:var(--sea);
   color:var(--paper);
   transform:translateY(-2px);
+}
+.resume-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:6px;
 }
 /* Beachy wave dividers that frame the About section top/bottom */
 .wave-top, .wave-bottom{
@@ -393,6 +528,19 @@ h2{
   background:var(--sand-deep);
   font-size:1.15rem;
   margin-bottom:12px;
+}
+/* Mini preview thumbnail — the same photo used at the top of the full page,
+   shrunk down so the card hints at what's inside before you open it. */
+.card-thumb{
+  display:block;
+  width:100%;
+  height:190px;
+  object-fit:contain;
+  object-position:center;
+  background:var(--paper);
+  border-radius:14px;
+  border:1px solid var(--sand-line);
+  margin-bottom:14px;
 }
 .card a{
   font-size:0.9rem;
@@ -508,6 +656,14 @@ button.card.openable .card-link{
   color:var(--ink);
   margin-top:28px;
 }
+.modal .signoff-author{
+  display:inline-block;
+  margin-top:8px;
+  font-style:normal;
+  font-weight:600;
+  font-size:0.92em;
+  color:var(--ink-soft);
+}
 .modal .tagline{
   font-size:1.2rem;
   color:var(--ink);
@@ -552,13 +708,82 @@ button.card.openable .card-link{
   padding:7px 16px;
   border-radius:10px;
 }
+.modal .photo-frame{
+  position:relative;
+  display:inline-block;
+  background:var(--paper);
+  padding:12px 12px 22px 12px;
+  border:1px solid var(--sand-line);
+  border-radius:8px;
+  box-shadow:0 16px 32px rgba(40,28,10,0.24);
+  transform:rotate(-3.5deg);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+  margin:2px 0 26px 0;
+}
+.modal .photo-frame:hover{
+  transform:rotate(0deg) translateY(-2px);
+  box-shadow:0 20px 38px rgba(40,28,10,0.28);
+}
+.modal .photo-tape{
+  position:absolute;
+  top:-14px;
+  left:50%;
+  width:92px;
+  height:28px;
+  transform:translateX(-50%) rotate(-3deg);
+  background:rgba(255,255,255,0.55);
+  border:1px solid rgba(255,255,255,0.7);
+  box-shadow:0 3px 8px rgba(40,28,10,0.18);
+}
 .modal .prize-photo{
   display:block;
   width:100%;
   max-width:480px;
-  border-radius:18px;
-  margin:2px 0 26px 0;
-  box-shadow:0 14px 30px rgba(40,28,10,0.2);
+  border-radius:4px;
+  margin:0;
+  box-shadow:none;
+}
+/* "Hey, I'm Twisha" page: photo docked to the right, smaller, with the
+   copy flowing to its left instead of stacking on top. */
+.modal .about-photo-frame{
+  float:right;
+  width:180px;
+  max-width:40%;
+  margin:0 0 18px 22px;
+}
+.modal .about-photo-frame .prize-photo{
+  max-width:100%;
+}
+.modal .signoff{ clear:both; }
+@media (max-width:640px){
+  .modal .about-photo-frame{
+    float:none;
+    width:150px;
+    max-width:60%;
+    margin:0 auto 20px auto;
+  }
+}
+
+/* Small captioned photo used inside the Journey timeline */
+.journey-photo-frame{
+  float:right;
+  width:170px;
+  max-width:45%;
+  margin:2px 0 14px 18px;
+}
+.journey-photo-frame .prize-photo{ max-width:100%; }
+.journey-photo-caption{
+  display:block;
+  text-align:center;
+  font-family:'Quicksand',sans-serif;
+  font-weight:600;
+  font-size:0.78rem;
+  color:var(--ink-soft);
+  margin-top:6px;
+  font-style:italic;
+}
+@media (max-width:640px){
+  .journey-photo-frame{ float:none; width:160px; max-width:65%; margin:10px auto 14px auto; }
 }
 .modal .project-live-link{
   display:inline-block;
@@ -609,11 +834,11 @@ button.card.openable .card-link{
   z-index:60;
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
   background:var(--paper);
   border:1px solid var(--sand-line);
   border-radius:999px;
-  padding:10px 18px;
+  padding:13px 24px;
   cursor:pointer;
   box-shadow:0 6px 18px rgba(40,28,10,0.16);
   transition:transform 0.15s ease, background 0.15s ease;
@@ -621,12 +846,12 @@ button.card.openable .card-link{
 }
 .likes:hover{ transform:translateY(-2px); background:var(--sand-deep); }
 .likes:active{ transform:translateY(0) scale(0.96); }
-.likes-heart{ font-size:1.15rem; transition:transform 0.25s ease; }
+.likes-heart{ font-size:1.45rem; transition:transform 0.25s ease; }
 .likes.bump .likes-heart{ transform:scale(1.35); }
 .likes-count{
   font-family:'Quicksand',sans-serif;
   font-weight:700;
-  font-size:0.95rem;
+  font-size:1.2rem;
   color:var(--ink);
 }
 
@@ -636,23 +861,78 @@ button.card.openable .card-link{
   left:22px;
   bottom:18px;
   z-index:70; /* keep the joke control clickable above the overlay and nav */
-  width:52px;
-  height:52px;
+  width:64px;
+  height:64px;
   opacity:0.95;
   cursor:pointer;
   background:none;
   border:none;
+  border-radius:50%;
   padding:0;
   filter:drop-shadow(0 4px 10px rgba(40,28,10,0.22));
-  transition:filter 0.2s ease, opacity 0.2s ease;
+  transition:filter 0.25s ease, opacity 0.2s ease, box-shadow 0.25s ease, transform 0.2s ease;
 }
 .shell-deco svg{ pointer-events:none; }
 .shell-deco:hover, .shell-deco:focus-visible{
   opacity:1;
-  filter:drop-shadow(0 6px 16px rgba(217,122,99,0.5));
+  transform:translateY(-2px);
+  filter:drop-shadow(0 6px 16px rgba(217,122,99,0.45));
+  box-shadow:0 0 0 8px rgba(217,122,99,0.22), 0 0 26px 6px rgba(217,122,99,0.35);
 }
 .shell-deco:active{ opacity:0.85; }
 .shell-deco svg{ width:100%; height:100%; display:block; }
+/* Attention nudge — bounces a handful of times, repeating every 15s until
+   the shell has actually been clicked/opened once, then stops for good. */
+@keyframes shellNudge{
+  0%, 100% { transform:translateY(0); }
+  50% { transform:translateY(-14px); }
+}
+.shell-deco.nudge{
+  animation:shellNudge 0.35s ease-in-out 10;
+}
+/* Small pill tooltip that appears above the shell on hover/focus, so it
+   reads as clickable before anyone actually clicks it. */
+.shell-tooltip{
+  position:fixed;
+  left:22px;
+  bottom:90px;
+  z-index:70;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:0.82rem;
+  padding:7px 14px;
+  border-radius:999px;
+  white-space:nowrap;
+  opacity:0;
+  transform:translateY(6px);
+  pointer-events:none;
+  transition:opacity 0.18s ease, transform 0.18s ease;
+}
+.shell-tooltip::after{
+  content:'';
+  position:absolute;
+  left:22px;
+  bottom:-4px;
+  width:9px;
+  height:9px;
+  background:var(--ink);
+  transform:rotate(45deg);
+}
+.shell-deco:hover + .shell-tooltip,
+.shell-deco:focus-visible + .shell-tooltip{
+  opacity:1;
+  transform:translateY(0);
+}
+/* Hint shown inside the modal after a shell fact, nudging people to click
+   the shell again instead of leaving them to guess it cycles. */
+.modal .shell-hint{
+  margin-top:14px;
+  font-size:0.85rem;
+  font-style:italic;
+  color:var(--ink-soft);
+}
 
 /* ---------- Copy-email flag ---------- */
 .email-wrap{ position:relative; display:inline-flex; }
@@ -765,6 +1045,15 @@ footer#contact .links a:focus-visible{
   header.nav nav{ gap:14px; }
   header.nav nav a{ font-size:0.85rem; }
   .journey-item{ flex-direction:column; gap:10px; }
+}
+
+/* Bigger boxes on laptop/desktop only for About, Journey and Work cards —
+   phone sizing above is untouched on purpose. */
+@media (min-width:861px){
+  .cards .card{ padding:36px; border-radius:26px; }
+  .cards .card h3{ font-size:1.32rem; }
+  .cards .card p, .cards .card p em{ font-size:1.08rem; line-height:1.65; }
+  .cards .card-icon{ width:46px; height:46px; font-size:1.4rem; }
 }
 
 @media (prefers-reduced-motion: reduce){

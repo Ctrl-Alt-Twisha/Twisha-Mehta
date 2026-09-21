@@ -52,80 +52,38 @@
     link.addEventListener('click', closeModal);
   });
 
-  /* ---------- Shell joke popup ---------- */
+  /* ---------- Shell fun-facts popup ---------- */
   const shellBtn = document.getElementById('shellBtn');
 
   // Always shown on the very first click of a page load.
-  const SHELL_PINNED_JOKE = "Puzzle pieces and seashells follow the same rule: if it doesn't fit, don't force it.";
+  const SHELL_PINNED_FACT = {
+    title: "Ocean and Beach Aesthetic",
+    body: "Why the ocean theme on my site? Because like the ocean, code looks simple on the surface, but there\u2019s a whole ecosystem underneath."
+  };
 
   // Everything else — shuffled, and drawn without repeats until the whole
   // set has been shown once, then reshuffled. Resets on page refresh.
-  const SHELL_JOKES = [
-    "Why did the seashell blush? It finally saw what was under the tide.",
-    "This shell used to be a &lt;div&gt;. It wanted more shell-f expression.",
-    "Debugging is a lot like beachcombing \u2014 mostly sand, occasionally treasure.",
-    "I asked the ocean for code review feedback. It just kept making waves.",
-    "Why do programmers love the beach? Endless sandboxes, zero merge conflicts with the tide.",
-    "This shell has survived every wave so far \u2014 kind of like your code after a good refactor.",
-    "Fun fact: shells don't have Wi-Fi, but they still know how to make waves.",
-    "Why did the crab never share? Because he's shellfish.",
-    "The ocean waved, so I waved back. Seemed rude not to.",
-    "This shell has excellent taste \u2014 it's been sitting on the beach for years.",
-    "Life's a beach, and then you debug.",
-    "The tide came in and reviewed my code. It left a lot of red flags.",
-    "Sand gets everywhere \u2014 kind of like technical debt.",
-    "Why was the starfish always calm? Nothing fazed it.",
-    "Waves don't rush. Neither should a good code review.",
-    "The ocean never overthinks. It just keeps moving.",
-    "Why did the seashell go to therapy? Too many waves of emotion.",
-    "This shell has heard every wave's secrets and told none of them.",
-    "Beach days and bug fixes have one thing in common: sand shows up somewhere unexpected.",
-    "The tide always comes back \u2014 unlike some of my earlier project ideas.",
-    "Every wave thinks it's the big one. So does every deploy.",
-    "My code and the ocean both have currents I don't fully understand.",
-    "Debugging is just beachcombing for bugs instead of shells.",
-    "Why did the developer take a beach day? Too many unresolved conflicts.",
-    "My favorite exception is the one I never catch \u2014 on the beach, ideally.",
-    "Good code and good sandcastles both fall apart if you build too fast.",
-    "Every semicolon I forget, the ocean forgives. My compiler doesn't.",
-    "A finished puzzle and a finished project both start with way too many loose pieces.",
-    "The best part of a puzzle isn't finishing it \u2014 it's the piece that finally clicks.",
-    "I've never met a puzzle piece I didn't spend way too long searching for.",
-    "A 1000-piece puzzle is basically a group project with quieter teammates.",
-    "This shell is the strong, silent type.",
-    "Some shells whisper the ocean. This one just judges your scrolling.",
-    "Shake this shell and you might hear the sound of unfinished side-projects.",
-    "This shell has more patience than my Wi-Fi.",
-    "Waves crash, but this shell just chills.",
-    "This shell survived a thousand tides and one refresh button.",
-    "Ask this shell a question and it'll answer in exactly one sarcastic wave sound.",
-    "This shell has seen more sunsets than your camera roll.",
-    "Some things get smoother with time \u2014 this shell, and eventually, your code.",
-    "Not all treasure is gold. Some of it is just a really good clue.",
-    "A shell's favorite music genre: wave-y.",
-    "If shells could talk, this one would probably just say 'still loading...'",
-    "This shell believes in taking things one tide at a time.",
-    "Some people collect stamps. This shell collects moments.",
-    "This shell has zero notifications and, honestly, that's the dream.",
-    "Even shells need a moment to just sit on the sand and do nothing.",
-    "A shell never rushes the tide, and neither should you rush a good idea.",
-    "If patience were a shape, it would look exactly like this shell.",
-    "This shell's biggest flex: surviving every wave without a single complaint.",
-    "Not every shell washes ashore with a story, but this one definitely did.",
-    "This shell once watched an entire sunset without checking its phone. Iconic.",
-    "The ocean's favorite debugging tool: time.",
-    "Every good idea starts a little messy \u2014 kind of like wet sand.",
-    "This shell has never once panicked during a deadline. Impressive.",
-    "Sometimes the best clue is the one hiding in plain sight, like a shell in the sand.",
-    "This shell has never lost an argument, mostly because it never argues.",
-    "The tide always returns what it borrows, eventually.",
-    "A good puzzle and a good beach day end the same way: satisfied and slightly sandy.",
-    "This shell's advice for everything: breathe, and let the wave pass.",
-    "Not every mystery needs solving today. Some just need a good beach walk.",
-    "This shell's secret talent: looking effortlessly cool while doing absolutely nothing.",
-    "A little curiosity goes a long way \u2014 on the beach, and everywhere else.",
-    "This shell believes every good project deserves a little sand in its shoes.",
-    "If you're reading this, you've officially been shell-approved."
+  const SHELL_FACTS = [
+    { title: "30 LeetCode Problems in 24 Hours", body: "Once spent an entire day solving 30 LeetCode problems back to back. When I get into a problem solving flow state, I don't stop until every edge case is conquered." },
+    { title: "The Light Mode Stance", body: "Light mode shouldn't exist. My eyes are strictly calibrated for dark mode only." },
+    { title: "First Line of Code", body: "Built my first website in 7th grade featuring a button labeled Hello. Clicking it triggered a pop up reading Hello Coders alongside a custom pop up sound, the start of a long obsession with UI interactivity." },
+    { title: "Favorite LeetCode Problem Type", body: "The brain busters that require 45 minutes of intense logic architecture, only to yield an elegant, one line solution." },
+    { title: "The Secret Engineer Superpower", body: "Avid reading. Reading hundreds of books trained my brain to navigate dense documentation, complex logic flows, and edge cases effortlessly." },
+    { title: "Debugging Ritual", body: "When a bug gets stubborn, I step away for 10 minutes, watch a dumb comedy snippet, and return with a fresh solution." },
+    { title: "The Escape Room Record", body: "Absolute escape room fanatic. If you put me in a room with cryptic clues and a 60 minute timer, we are getting out." },
+    { title: "The Rubik\u2019s Cube Attempt", body: "Tried learning to solve a Rubik's Cube once and ended up learning how to skateboard instead, still don't know how to solve a Rubik's Cube!" },
+    { title: "Favorite Author", body: "Jennifer Lynn Barnes. Her books are so packed with riddles, anagrams, and unexpected twists that reading them feels like code breaking." },
+    { title: "The Impromptu 20 Minute Presentation", body: "I could give an unscripted, 20 minute masterclass on either Brooklyn Nine Nine, Friends, must read mystery books, or how to play guitar chords." },
+    { title: "The Guitar Break", body: "When I need to unplug from digital screens, picking up the guitar is my favorite way to switch from logical thinking to creative rhythm." },
+    { title: "Book Format Preference", body: "Physical books with real paper pages over e-readers. Nothing beats the tactile feeling of flipping pages." },
+    { title: "Ideal Problem Solving Mindset", body: "Every complex system is just a collection of smaller puzzles waiting to be unraveled." },
+    { title: "Workplace Pet Peeve", body: "Meetings that could easily have been a single Slack message or a quick email bullet list." },
+    { title: "Coding Fuel", body: "Silence, focus mode, and the satisfaction of watching test cases pass." },
+    { title: "Unwinding Ritual", body: "Closing the laptop and diving straight into a fiction book with deep lore or complex riddles." },
+    { title: "Desk Setup Essential", body: "High contrast dark themes on every editor and terminal window because at this point my eyes literally refuse to process white pixels." },
+    { title: "Night Owl vs Early Bird", body: "Late night coder, the world is quiet, and the logic flows best after dark." },
+    { title: "Personal Motto", body: "If it looks like a dead end, you just haven't found the hidden mechanism yet." },
+    { title: "Unwinding with Comedy", body: "Big fan of comfort comedy shows with witty banter, there's nothing better to clear your head after a long coding session." }
   ];
 
   let shellQueue = [];
@@ -140,19 +98,41 @@
     return a;
   }
 
-  function nextShellJoke(){
+  function nextShellFact(){
     if (shellFirstClick){
       shellFirstClick = false;
-      return SHELL_PINNED_JOKE;
+      return SHELL_PINNED_FACT;
     }
-    if (shellQueue.length === 0) shellQueue = shuffle(SHELL_JOKES);
+    if (shellQueue.length === 0) shellQueue = shuffle(SHELL_FACTS);
     return shellQueue.pop();
   }
 
   if (shellBtn){
-    shellBtn.addEventListener('click', () => {
-      openModal('\ud83d\udc1a A little beach wisdom', `<p>${nextShellJoke()}</p>`, false);
+    let shellOpened = false;
+    let nudgeInterval = null;
+
+    shellBtn.addEventListener('animationend', () => {
+      shellBtn.classList.remove('nudge');
     });
+
+    shellBtn.addEventListener('click', () => {
+      shellOpened = true;
+      shellBtn.classList.remove('nudge');
+      if (nudgeInterval) { clearInterval(nudgeInterval); nudgeInterval = null; }
+      const fact = nextShellFact();
+      openModal(
+        `\ud83d\udc1a ${fact.title}`,
+        `<p>${fact.body}</p><p class="shell-hint">Click the shell again for more \u2192</p>`,
+        false
+      );
+    });
+
+    // Every 20s, a longer bounce (10 hops) to flag it's interactive — stops
+    // for good the first time it's actually clicked/opened.
+    nudgeInterval = setInterval(() => {
+      if (shellOpened) return;
+      shellBtn.classList.add('nudge');
+    }, 20000);
   }
 
   /* ---------- Likes counter ----------
@@ -161,35 +141,82 @@
      count starts at 0 on each browser and drifts independently. */
   const likesBtn = document.getElementById('likesBtn');
   const likesCount = document.getElementById('likesCount');
-  const COUNTER_PATH = 'twisha-mehta-portfolio-likes';
-  const COUNTER_URL = `https://api.visitorbadge.io/api/visitors?path=${encodeURIComponent(COUNTER_PATH)}&label=likes&countColor=%23d97a63&style=flat`;
+  const LEGACY_LIKES_KEY = 'twisha-portfolio-likes';
+  localStorage.removeItem(LEGACY_LIKES_KEY);
+
+  const LOCAL_LIKES_KEY = 'twisha-portfolio-likes-local';
+  const COUNTER_NS = 'twisha-portfolio';
+  const COUNTER_KEY = 'likes';
+  const COUNTER_GET = `https://api.countapi.xyz/get/${COUNTER_NS}/${COUNTER_KEY}`;
+  const COUNTER_HIT = `https://api.countapi.xyz/hit/${COUNTER_NS}/${COUNTER_KEY}`;
+
+  function getLocalLikes(){
+    const n = Number.parseInt(localStorage.getItem(LOCAL_LIKES_KEY) || '0', 10);
+    return Number.isFinite(n) ? n : 0;
+  }
+  // Display-only formatting (e.g. 1000 -> "1,000"). This never touches the
+  // actual stored/shared count, key, or namespace — just how it's shown.
+  function formatLikes(n){
+    return Number(n).toLocaleString('en-US');
+  }
+
+  function setLocalLikes(n){
+    const safe = Number.isFinite(n) ? n : 0;
+    localStorage.setItem(LOCAL_LIKES_KEY, String(safe));
+    if (likesCount) likesCount.textContent = formatLikes(safe);
+  }
 
   function bump(){
     likesBtn.classList.add('bump');
     setTimeout(() => likesBtn.classList.remove('bump'), 250);
   }
 
-  function extractCount(svg){
-    const match = String(svg).match(/(?:aria-label|<title>)="?likes:\s*(\d+)/i);
-    return match ? Number.parseInt(match[1], 10) : null;
-  }
-
-  async function recordLike(){
-    try {
-      const res = await fetch(COUNTER_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error('bad response');
-      const n = extractCount(await res.text());
-      if (typeof n === 'number' && likesCount) likesCount.textContent = String(n);
-    } catch (e) {
-      // Keep the last shared value visible if the service is temporarily unavailable.
-    }
+  function extractCount(data){
+    if (!data) return null;
+    if (typeof data.value === 'number') return data.value;
+    if (typeof data.count === 'number') return data.count;
+    return null;
   }
 
   async function useSharedLikes(){
-    await recordLike();
-    likesBtn.addEventListener('click', () => {
+    const setCount = (n) => {
+      if (typeof n === 'number' && likesCount) likesCount.textContent = formatLikes(n);
+    };
+
+    try {
+      const res = await fetch(COUNTER_GET);
+      if (res.ok) {
+        const n = extractCount(await res.json());
+        if (typeof n === 'number') {
+          setCount(n);
+          return;
+        }
+      } else if (res.status === 404) {
+        if (likesCount) likesCount.textContent = '0';
+        return;
+      }
+      throw new Error('bad response');
+    } catch (e) {
+      // The shared service can fail in some environments, so keep the counter
+      // moving locally rather than leaving the button stuck.
+      setLocalLikes(getLocalLikes());
+    }
+
+    likesBtn.addEventListener('click', async () => {
       bump();
-      recordLike();
+      try {
+        const res = await fetch(COUNTER_HIT);
+        if (res.ok) {
+          const n = extractCount(await res.json());
+          if (typeof n === 'number') {
+            setCount(n);
+            return;
+          }
+        }
+        throw new Error('bad response');
+      } catch (e) {
+        setLocalLikes(getLocalLikes() + 1);
+      }
     });
   }
 

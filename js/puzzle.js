@@ -138,9 +138,15 @@
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        stage.classList.add('assembled');
-        const revealDelay = reduceMotion ? 100 : 1500;
-        setTimeout(() => { if (heroCopy) heroCopy.classList.add('show'); }, revealDelay);
+        const assemble = () => {
+          stage.classList.add('assembled');
+          const revealDelay = reduceMotion ? 100 : 1500;
+          setTimeout(() => { if (heroCopy) heroCopy.classList.add('show'); }, revealDelay);
+        };
+        // Brief pause while pieces are still scattered so it actually reads
+        // as a puzzle coming together, not a cut straight to the photo.
+        if (reduceMotion) assemble();
+        else setTimeout(assemble, 500);
       });
     });
   }
