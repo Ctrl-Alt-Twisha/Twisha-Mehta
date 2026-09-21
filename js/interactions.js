@@ -179,36 +179,22 @@
     return null;
   }
 
-  async function useSharedLikes(){
-    const setCount = (n) => {
-      if (typeof n === 'number') {
-        localStorage.setItem(LOCAL_LIKES_KEY, String(n));
-        if (likesCount) likesCount.textContent = formatLikes(n);
-      }
-    };
+  function updateSharedCount(){
+    const badge = document.createElement('img');
+    badge.src = `${COUNTER_HIT}&cache=${Date.now()}`;
+    badge.alt = 'Shared likes count';
+    badge.width = 58;
+    badge.height = 20;
+    badge.addEventListener('error', () => setLocalLikes(getLocalLikes() + 1), { once:true });
+    if (likesCount) likesCount.replaceChildren(badge);
+  }
 
-    async function updateSharedCount(){
+  function useSharedLikes(){
+    likesBtn.addEventListener('click', () => {
       bump();
-      try {
-        const res = await fetch(COUNTER_HIT, { cache: 'no-store' });
-        if (res.ok) {
-          const n = extractCount(await res.text());
-          if (typeof n === 'number') {
-            setCount(n);
-            return;
-          }
-        }
-        throw new Error('bad response');
-      } catch (e) {
-        setLocalLikes(getLocalLikes() + 1);
-      }
-    }
-
-    likesBtn.addEventListener('click', updateSharedCount);
-
-    // VisitorBadge is the shared source of truth. Reading it here keeps every
-    // device on the same value instead of displaying device-local storage.
-    await updateSharedCount();
+      updateSharedCount();
+    });
+    updateSharedCount();
   }
 
   if (likesBtn) useSharedLikes();
