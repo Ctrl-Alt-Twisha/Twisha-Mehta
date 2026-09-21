@@ -145,10 +145,7 @@
   localStorage.removeItem(LEGACY_LIKES_KEY);
 
   const LOCAL_LIKES_KEY = 'twisha-portfolio-likes-local';
-  const COUNTER_NS = 'twisha-portfolio';
-  const COUNTER_KEY = 'likes';
-  const COUNTER_GET = `https://api.countapi.xyz/get/${COUNTER_NS}/${COUNTER_KEY}`;
-  const COUNTER_HIT = `https://api.countapi.xyz/hit/${COUNTER_NS}/${COUNTER_KEY}`;
+  const COUNTER_HIT = 'https://api.visitorbadge.io/api/visitors?path=twisha-mehta-portfolio-likes-v2&label=likes&countColor=%23d97a63&style=flat';
 
   function getLocalLikes(){
     const n = Number.parseInt(localStorage.getItem(LOCAL_LIKES_KEY) || '0', 10);
@@ -172,6 +169,10 @@
   }
 
   function extractCount(data){
+    if (typeof data === 'string') {
+      const match = data.match(/(?:aria-label|<title>)="?(?:likes|visitors):\s*(\d+)/i);
+      return match ? Number.parseInt(match[1], 10) : null;
+    }
     if (!data) return null;
     if (typeof data.value === 'number') return data.value;
     if (typeof data.count === 'number') return data.count;
@@ -205,29 +206,12 @@
     likesBtn.addEventListener('click', async () => {
       bump();
       try {
-        const res = await fetch(COUNTER_HIT);
+        const res = await fetch(COUNTER_HIT, { cache: 'no-store' });
         if (res.ok) {
-          const n = extractCount(await res.json());
+          const n = extractCount(await res.text());
           if (typeof n === 'number') {
             setCount(n);
-            return;
-          }
-        }
-        throw new Error('bad response');
-      } catch (e) {
-        setLocalLikes(getLocalLikes() + 1);
-      }
-    });
-  }
-
-  if (likesBtn) useSharedLikes();
-
-  /* ---------- Copy email on click ---------- */
-  const copyFlag = document.getElementById('copyFlag');
-  const EMAIL = 'twishawork234@gmail.com';
-
-  function flashCopied(){
-    if (!copyFlag) return;
+            setLocalLikes(getLocalLikes());
     copyFlag.classList.add('show');
     clearTimeout(flashCopied._t);
     flashCopied._t = setTimeout(() => copyFlag.classList.remove('show'), 1600);

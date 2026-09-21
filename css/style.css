@@ -249,6 +249,12 @@ main{ background:var(--sand); }
   outline-offset:6px;
   border-radius:8px;
 }
+.stat-thumb{
+  width:86px;
+  height:72px;
+  object-fit:contain;
+  margin-bottom:8px;
+}
 .stat .num{
   font-family:'Quicksand',sans-serif;
   font-weight:700;
@@ -302,7 +308,7 @@ section{ padding:88px 0; scroll-margin-top:34px; }
    so About doesn't feel like it starts the instant you stop scrolling. */
 #about{
   position:relative;
-  padding:190px 0 170px 0;
+  padding:165px 0 145px 0;
   background:linear-gradient(180deg, var(--sand) 0%, #ecdfc0 100%);
   overflow:hidden;
 }
@@ -310,7 +316,7 @@ section{ padding:88px 0; scroll-margin-top:34px; }
    from the nav doesn't land flush against the header. */
 #work{
   position:relative;
-  padding:150px 0 130px 0;
+  padding:135px 0 115px 0;
   scroll-margin-top:44px;
   /* Deep lagoon teal instead of flat navy: still dark, but with a soft
      sea-glow up top and a faint sunset-coral glow low down so it feels
@@ -330,6 +336,7 @@ section{ padding:88px 0; scroll-margin-top:34px; }
 }
 #work h2{ color:var(--paper); }
 #work .card{
+  padding:22px;
   background:linear-gradient(160deg, #1f5563 0%, #18435a 100%);
   border:1px solid rgba(127,179,196,0.38);
   box-shadow:0 10px 26px rgba(4,16,24,0.35);
